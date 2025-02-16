@@ -10,6 +10,10 @@ use App\Models\User;
 
 class HomeController extends Controller
 {
+
+    public function index(){
+        return view('home.userpage');
+    }
     public function redirect(){
 
         // Retrieve the usertype from the authenticated User model to determine the redirection path
@@ -19,7 +23,7 @@ class HomeController extends Controller
             return view('admin.home');
         }
         else {
-            return view('dashboard');
+            return view('home.userpage');
         }
 
     }
