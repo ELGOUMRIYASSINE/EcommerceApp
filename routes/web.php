@@ -19,4 +19,8 @@ Route::middleware([
 Route::get('/redirect',[HomeController::class,'redirect']);
 Route::get('/category',[AdminController::class,'category'])->name('admin.category');
 Route::post('/category',[AdminController::class,'store_category'])->name('admin.category.store');
+Route::delete('/category/{category}',[AdminController::class,'delete_category'])->name('admin.category.delete');
+// Route::delete('/category/{category}',function(){
+//     return 'delete route';
+// })->name('admin.category.delete');
 

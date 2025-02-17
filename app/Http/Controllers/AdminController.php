@@ -8,7 +8,9 @@ use App\Models\Category;
 class AdminController extends Controller
 {
     public function category(){
-        return view('admin.category');
+
+        $categories = Category::All();
+        return view('admin.category',['categories'=> $categories]);
     }
 
     public function store_category(){
@@ -19,5 +21,11 @@ class AdminController extends Controller
         $data->save() ;
 
         return redirect()->back()->with('message', 'Category added successfully');
+    }
+
+    public function delete_category(Category $category){
+
+        $category->delete() ;
+        return to_route('admin.category')->with('message','Category Deleted successfully');
     }
 }
