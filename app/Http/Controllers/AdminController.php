@@ -60,9 +60,15 @@ class AdminController extends Controller
         return view('admin.product.create',compact('categories'));
     }
 
+    public function products(){
+
+
+        $products = Product::All();
+
+        return view('admin.product.index',compact('products'));
+    }
+
     public function store_product(){
-
-
 
 
         if (request()->hasFile('image')){

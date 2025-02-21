@@ -25,8 +25,10 @@ Route::get('/redirect',[HomeController::class,'redirect']);
 
 // product section
 
-Route::get('/product/create',[AdminController::class,'create_product'])->name('create_product');
-Route::post('/product',[AdminController::class,'store_product'])->name('store_product');
+Route::get('/product/show',  [AdminController::class, 'products'])->name('products.index');
+Route::get('/product/create', [AdminController::class, 'create_product'])->name('create_product');
+Route::post('/product', [AdminController::class, 'store_product'])->name('store_product');
+
 
 // category section
 

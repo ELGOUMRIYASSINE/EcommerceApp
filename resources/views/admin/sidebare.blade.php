@@ -69,7 +69,7 @@
         </a>
       </li>
       <li class="nav-item menu-items">
-        <a class="nav-link" href="{{ asset('admin/pages/icons/mdi.html') }}">
+        <a class="nav-link" href="{{ route('products.index') }}">
           <span class="menu-icon">
             <i class="mdi mdi-contacts"></i>
           </span>
@@ -85,7 +85,7 @@
         </a>
       </li>
       <li class="nav-item menu-items">
-        <a class="nav-link" href="{{ route('admin.category') }}">
+        <a class="nav-link active" href="{{ route('admin.category') }}">
           <span class="menu-icon">
             <i class="mdi mdi-playlist-play"></i>
           </span>
