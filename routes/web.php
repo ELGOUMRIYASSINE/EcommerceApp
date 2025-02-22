@@ -25,9 +25,16 @@ Route::get('/redirect',[HomeController::class,'redirect']);
 
 // product section
 
-Route::get('/product/show',  [AdminController::class, 'products'])->name('products.index');
-Route::get('/product/create', [AdminController::class, 'create_product'])->name('create_product');
-Route::post('/product', [AdminController::class, 'store_product'])->name('store_product');
+Route::get('/products/show',  [AdminController::class, 'show_products'])->name('products.index');
+Route::get('/product/create', [AdminController::class, 'create_product'])->name('products.create');
+Route::post('/product/store', [AdminController::class, 'store_product'])->name('store_product');
+Route::get('/product/show/{product}', [AdminController::class, 'show_product'])->name('product.show');
+Route::delete('/product/{product}', [AdminController::class, 'delete_product'])->name('product.delete');
+Route::get('/product/{product}/edit',[AdminController::class, 'edit_product'])->name('product.edit');
+Route::post('/product/{product}/update',[AdminController::class, 'update_product'])->name('product.update');
+
+
+
 
 
 // category section

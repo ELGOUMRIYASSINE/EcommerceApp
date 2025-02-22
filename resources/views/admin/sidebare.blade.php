@@ -77,7 +77,7 @@
         </a>
       </li>
       <li class="nav-item menu-items">
-        <a class="nav-link" href="{{ route('create_product') }}">
+        <a class="nav-link" href="{{ route('products.create') }}">
           <span class="menu-icon">
             <i class="mdi mdi-file-document-box"></i>
           </span>

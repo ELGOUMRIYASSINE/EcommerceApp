@@ -26,13 +26,13 @@ class AdminController extends Controller
     public function delete_category(Category $category){
 
         $category->delete() ;
-        return to_route('admin.category')->with('message','Category Deleted successfully');
+        return to_route('admin.category.category')->with('message','Category Deleted successfully');
     }
 
     public function edit_category(Category $category) {
 
         $categories = Category::All();
-        return view('admin.category',['categories'=> $categories,'category_to_edit'=>$category]);
+        return view('admin.category.category',['categories'=> $categories,'category_to_edit'=>$category]);
     }
 
     public function update_category(Category $category) {
@@ -60,22 +60,11 @@ class AdminController extends Controller
         return view('admin.product.create',compact('categories'));
     }
 
-    public function products(){
-
-
-        $products = Product::All();
-
-        return view('admin.product.index',compact('products'));
-    }
-
     public function store_product(){
-
-
         if (request()->hasFile('image')){
             $imagPath = request()->file('image')->store('products','public');
         }
         $data = new Product();
-
         $data->title = request()->title ;
         $data->description = request()->description ;
         $data->category_id = request()->category_id ;
@@ -83,14 +72,62 @@ class AdminController extends Controller
         $data->image = $imagPath ;
         $data->price = request()->price ;
         $data->discount_price = request()->discount_price ;
-
         $data->save();
-
         return redirect()->back()->with('message','Product Added Successfully');
+    }
 
+    // show all products
+    public function show_products(){
+
+
+        $products = Product::All();
+
+        return view('admin.product.index',compact('products'));
+    }
+
+    // show single product
+    public function show_product(Product $product){
+        return view('admin.product.show',compact('product'));
+    }
+
+
+    public function delete_product(Product $product){
+        $product->delete();
+
+        return redirect()->route('products.index')->with('message','Product Deleted Successfully');
+    }
+
+    public function edit_product(Product $product){
+
+        $categories = Category::All();
+
+        return view('admin.product.edit',['product'=> $product,'categories'=>$categories]);
+    }
+
+    public function update_product(Product $product){
+
+        // dd(request()->current_image);
+
+        $imagePath = request()->current_image;
+        if (!empty(request()->image)){
+            $imagePath = request()->file('image')->store('products','public');
+        }
+
+        $product->title = request()->title ;
+        $product->description = request()->description ;
+        $product->category_id = request()->category_id ;
+        $product->quantity = request()->quantity ;
+        $product->image = $imagePath ;
+        $product->price = request()->price ;
+        $product->discount_price = request()->discount_price ;
+        $product->save();
+
+        return redirect()->back()->with('message','Product Updated Successfully');
 
 
     }
+
+
 
 
 }
