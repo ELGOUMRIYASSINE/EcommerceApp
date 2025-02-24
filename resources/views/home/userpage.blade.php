@@ -20,6 +20,12 @@
       <link href="home/css/style.css" rel="stylesheet" />
       <!-- responsive style -->
       <link href="home/css/responsive.css" rel="stylesheet" />
+      <style>
+    /* Hide the "Showing X to Y of Z results" message */
+    .pagination-info {
+        display: none;
+    }
+      </style>
    </head>
    <body>
       <div class="hero_area">
@@ -71,7 +77,7 @@
       @include('home.footer')
 
       <!-- footer end -->
-      
+
       <div class="cpy_">
          <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
 
