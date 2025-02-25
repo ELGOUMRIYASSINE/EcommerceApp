@@ -26,9 +26,14 @@ class HomeController extends Controller
             return view('admin.home');
         }
         else {
-            $products = Product::paginate(10);
+            $products = Product::paginate(3);
             return view('home.userpage',compact('products'));
         }
 
+    }
+
+    public function product_details(Product $product){
+
+        return view('home.product_details',compact('product'));
     }
 }
