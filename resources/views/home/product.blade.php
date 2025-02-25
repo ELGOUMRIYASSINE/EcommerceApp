@@ -1,4 +1,4 @@
-<section class="product_section layout_padding">
+<section class="product_section layout_padding" id="products">
     <div class="container">
        <div class="heading_container heading_center">
           <h2>
@@ -10,14 +10,20 @@
           <div class="col-sm-6 col-md-4 col-lg-4">
              <div class="box">
                 <div class="option_container">
-                   <div class="options">
-                      <a href="{{ route('product_details',$product->id) }}" class="option1">
-                      Product Details
-                      </a>
-                      <a href="" class="option2">
-                      Buy Now
-                      </a>
-                   </div>
+                    <div class="options">
+                        <a href="{{ route('product_details', $product->id) }}" class="btn btn-outline-primary btn-block mb-2 option1    ">
+                            Product Details
+                        </a>
+                        <form action="{{ route('add_to_cart',$product->id) }}" method="POST" class="d-flex align-items-center justify-content-between">
+                            @csrf
+                            <div class="input-group" style="width: 120px;">
+                                <input type="number" name="quantity" min="1" value="1" class="form-control text-center">
+                            </div>
+                            <button type="submit" class="btn btn-primary ml-2 option2">
+                                <i class="fas fa-cart-plus"></i> Add To Cart
+                            </button>
+                        </form>
+                    </div>
                 </div>
                 <div class="img-box">
                    <img src="{{ asset('storage/'.$product->image) }}" alt="Product image">
