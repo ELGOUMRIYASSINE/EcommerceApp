@@ -70,28 +70,41 @@
       </li>
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('products.index') }}">
-          <span class="menu-icon">
-            <i class="mdi mdi-contacts"></i>
-          </span>
-          <span class="menu-title">Products</span>
+            <span class="menu-icon">
+                <i class="mdi mdi-package-variant"></i>
+            </span>
+            <span class="menu-title">Products</span>
         </a>
-      </li>
+    </li>
+
+
       <li class="nav-item menu-items">
         <a class="nav-link" href="{{ route('products.create') }}">
-          <span class="menu-icon">
-            <i class="mdi mdi-file-document-box"></i>
-          </span>
-          <span class="menu-title">Add Product</span>
+            <span class="menu-icon">
+                <i class="mdi mdi-cart-plus"></i> <!-- Alternative icon -->
+            </span>
+            <span class="menu-title">Add Product</span>
         </a>
-      </li>
+    </li>
+
       <li class="nav-item menu-items">
         <a class="nav-link active" href="{{ route('admin.category') }}">
-          <span class="menu-icon">
-            <i class="mdi mdi-playlist-play"></i>
-          </span>
-          <span class="menu-title">Category</span>
+            <span class="menu-icon">
+                <i class="mdi mdi-shape"></i>
+            </span>
+            <span class="menu-title">Category</span>
         </a>
-      </li>
+    </li>
+
+      <li class="nav-item menu-items">
+        <a class="nav-link active" href="{{ route('orders') }}">
+            <span class="menu-icon">
+                <i class="mdi mdi-cart"></i>
+            </span>
+            <span class="menu-title">Orders</span>
+        </a>
+    </li>
+
 
 
 

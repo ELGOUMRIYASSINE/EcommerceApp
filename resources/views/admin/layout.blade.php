@@ -22,6 +22,121 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">  <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
+    <style>
+        /* 🌗 GENERAL STYLES */
+body {
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text */
+}
+
+/* 🏛️ MAIN PANEL */
+.main-panel {
+    background-color: #1e1e1e; /* Dark gray panel */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    padding: 20px;
+}
+
+/* 📜 NAVBAR */
+.navbar {
+    background-color: #222; /* Dark navbar */
+    color: #fff;
+}
+
+.navbar a {
+    color: #ddd !important;
+}
+
+/* 📂 SIDEBAR */
+.sidebar {
+    background-color: #181818; /* Dark sidebar */
+    color: white;
+    height: 100vh;
+}
+
+.sidebar a {
+    color: #aaa !important;
+}
+
+.sidebar a:hover {
+    background-color: #333;
+    color: white !important;
+}
+
+/* 🏛️ TABLE */
+.table {
+    background-color: #222;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+}
+
+.table th {
+    background-color: #333;
+    color: #ffcc00; /* Yellow text for better visibility */
+}
+
+.table td {
+    color: #ddd;
+}
+
+/* 🎨 BUTTONS */
+.btn {
+    border-radius: 5px;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-warning {
+    background-color: #ffcc00;
+    border-color: #ffcc00;
+    color: black;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+/* 🌗 LIGHT MODE OPTION */
+.light-mode {
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.light-mode .main-panel {
+    background-color: white;
+}
+
+.light-mode .table {
+    background-color: white;
+    color: black;
+}
+
+.light-mode .navbar {
+    background-color: white;
+    color: black;
+}
+
+.light-mode .sidebar {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.light-mode .sidebar a {
+    color: black !important;
+}
+
+.light-mode .btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: black;
+}
+
+    </style>
 
 
 
