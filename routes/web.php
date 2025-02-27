@@ -48,4 +48,6 @@ Route::delete('/category/{category}', [AdminController::class, 'delete_category'
 
 // Orders Routes (Admin)
 Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
+Route::get('/orders/{order}',[AdminController::class, 'order_delivred'])->name('order_delivred');
+
 

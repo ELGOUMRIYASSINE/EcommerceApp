@@ -135,6 +135,16 @@ class AdminController extends Controller
         return view('admin.order.orders',compact('orders'));
     }
 
+    public function order_delivred(Order $order){
+
+        $order->delivery_status = 'Delivered';
+        $order->payment_status = 'Paid';
+        $order->save();
+
+        return redirect()->back();
+
+    }
+
 
 
 

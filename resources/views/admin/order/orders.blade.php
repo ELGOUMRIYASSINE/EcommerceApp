@@ -39,7 +39,7 @@
                                 <th>Image</th>
                                 <th>Payment Status</th>
                                 <th>Delivery Status</th>
-                                <th>Actions</th>
+                                <th>Delivered</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,13 +67,11 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-info btn-sm">View</a>
-                                        <a href="#" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="#" method="POST" style="display:inline-block;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button>
-                                        </form>
+                                        @if ($order->delivery_status == 'Delivered')
+                                            <span class="text-success">Delivered</span>
+                                        @else
+                                            <a href="{{ route('order_delivred',$order->id) }}" onclick="return confirm('Are you sure the order is delivered?')" class="btn btn-info btn-sm">Delivered</a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
