@@ -37,12 +37,12 @@
                         </thead>
                         <tbody>
                             @php
-                                $total = 0;
+                                $totalPrice = 0;
                             @endphp
                             @foreach($carts as $cart)
                                 @php
                                     // get the total price from the table
-                                    $total += $cart['price'] ;
+                                    $totalPrice += $cart['price'] ;
                                 @endphp
                                 <tr>
                                     <td>
@@ -85,9 +85,9 @@
                 </div>
                 {{-- @if($payment_method == 1) --}}
                 <div class="text-center mt-4">
-                    <h4 class="fw-bold">Total: ${{ number_format($total, 2) }}</h4>
+                    <h4 class="fw-bold">Total: ${{ number_format($totalPrice, 2) }}</h4>
                     <a href="{{ route('cash_order') }}" class="btn btn-success btn-lg mt-2">Cash On Deleviry</a>
-                    <a href="#" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
+                    <a href="{{ route('stripe',$totalPrice) }}" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
                 </div>
                 {{-- @elseif ($payment_method == 2)
                 @else --}}

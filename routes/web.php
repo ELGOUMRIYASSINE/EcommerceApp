@@ -36,6 +36,8 @@ Route::delete('/delete_cart/{cart}', [HomeController::class, 'delete_cart'])->na
 Route::post('/quantity_cart_update/{cart}', [HomeController::class, 'quantity_cart_update'])->name('quantity_cart_update');
 
 Route::get('/cash_order',[HomeController::class, 'cash_order'])->name('cash_order');
+Route::get('/stripe/{total}',[HomeController::class, 'stripe'])->name('stripe');
+Route::post('stripe/{totalPrice}',[HomeController::class,'stripePost'])->name('stripe.post');
 
 // Category Routes (Admin)
 Route::get('/category', [AdminController::class, 'category'])->name('admin.category');

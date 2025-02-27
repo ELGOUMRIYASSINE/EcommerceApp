@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use Session;
+use Stripe;
 
 class HomeController extends Controller
 {
@@ -142,6 +144,71 @@ class HomeController extends Controller
         }
 
         return redirect()->back()->with('message','Thank you for your order! We’ve received your request and will be in touch with you shortly. If you have any questions in the meantime, feel free to reach out. We appreciate your trust and look forward to assisting you!');
+    }
+
+    public function stripe($totalPrice){
+        return view('home.stripe',compact('totalPrice'));
+    }
+
+    public function stripePost(Request $request,$totalPrice)
+
+    {
+        
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+
+
+
+        Stripe\Charge::create ([
+
+                // * 100 means the price in dollars
+                "amount" => $totalPrice * 100,
+
+                "currency" => "usd",
+
+                "source" => $request->stripeToken,
+
+                "description" => "Thank For Payment"
+
+        ]);
+
+        $user = Auth::user();
+
+        $carts = Cart::where('user_id','=',$user->id)->get();
+
+        foreach($carts as $cart){
+            $order = new Order();
+
+            $order->name = $cart->name;
+            $order->email = $cart->email;
+            $order->phone = $cart->phone;
+            $order->address = $cart->address;
+            $order->user_id = $cart->user_id;
+            $order->product_title = $cart->product_title;
+            $order->quantity = $cart->quantity;
+            $order->price = $cart->price;
+            $order->image = $cart->image;
+            $order->product_id = $cart->product_id;
+            $order->payment_status = $cart->payment_status;
+
+            $order->payment_status = "Paid";
+            $order->delivery_status = "Processing";
+
+            $order->save();
+
+            // delete cart after add it to the order table
+            $cart->delete();
+
+        }
+
+
+
+        Session::flash('success', 'Payment successful!');
+
+
+
+        return back();
+
     }
 
 }
