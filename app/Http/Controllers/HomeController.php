@@ -68,4 +68,40 @@ class HomeController extends Controller
             return redirect('login');
         }
     }
+
+    public function show_cart(){
+
+        if (Auth::check()){
+            $user = Auth::user();
+            $carts = Cart::where('user_id','=',$user->id)->get();
+            $prices  = Product::select('id','price','discount_price')->get();
+            return view('home.showCart',compact('carts','prices'));
+        } else {
+            return redirect('login');
+        }
+
+
+
+    }
+
+    public function delete_cart(Cart $cart){
+        $cart->delete();
+        return redirect()->back()->with('item deleted successfully');
+    }
+
+    public function quantity_cart_update(Cart $cart){
+
+        $cart->quantity = request()->quantity;
+        $product = Product::find($cart->product_id);
+        if(isset($product->discount_price)){
+            $cart->price = $product->discount_price * request()->quantity;
+        } else {
+            $cart->price = $product->price * request()->quantity;
+        }
+        $cart->save();
+
+
+        return redirect()->back()->with('item updated successfully');
+    }
+
 }
