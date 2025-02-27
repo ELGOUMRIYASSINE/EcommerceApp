@@ -41,6 +41,7 @@
                             @endphp
                             @foreach($carts as $cart)
                                 @php
+                                    // get the total price from the table
                                     $total += $cart['price'] ;
                                 @endphp
                                 <tr>
@@ -48,7 +49,7 @@
                                         <img src="{{ asset('storage/'.$cart['image']) }}" alt="Product Image" class="img-fluid" style="width: 80px; height: auto;">
                                     </td>
                                     <td>{{ $cart['product_title'] }}</td>
-
+                                    {{-- get the actual price of the product from the product table that comes from controller --}}
                                     @foreach($prices as $price)
                                         @if($price['id'] == $cart->product_id)
                                             @if(isset($price['discount_price']))
@@ -82,15 +83,26 @@
                         </tbody>
                     </table>
                 </div>
-
+                {{-- @if($payment_method == 1) --}}
                 <div class="text-center mt-4">
                     <h4 class="fw-bold">Total: ${{ number_format($total, 2) }}</h4>
-                    <a href="#" class="btn btn-success btn-lg mt-2">Proceed to Checkout</a>
+                    <a href="{{ route('cash_order') }}" class="btn btn-success btn-lg mt-2">Cash On Deleviry</a>
+                    <a href="#" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
                 </div>
+                {{-- @elseif ($payment_method == 2)
+                @else --}}
             @else
-                <div class="alert alert-warning text-center">
-                    Your cart is empty. 🛍️ <a href="#" class="alert-link">Shop Now</a>
-                </div>
+                @if(session('message') !== null)
+                    <div class="alert alert-success text-center d-flex align-items-center justify-content-center" role="alert" style="font-size: 18px; font-weight: 600; padding: 15px; border-radius: 10px;">
+                        <i class="fas fa-check-circle me-2" style="font-size: 22px;"></i>
+                        <span>Order Placed Successfully! 🎉 {{ session('message') }}</span>
+                    </div>
+
+                @else
+                    <div class="alert alert-warning text-center">
+                        Your cart is empty. 🛍️ <a href="#" class="alert-link">Shop Now</a>
+                    </div>
+                @endif
             @endif
         </div>
 

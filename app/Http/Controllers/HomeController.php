@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -71,10 +72,16 @@ class HomeController extends Controller
 
     public function show_cart(){
 
+        // paymen method
+        // 1 => cash on deleviry and pay using card
+        // 2 => cash on deleviry
+        // 3 => pay using card
+
         if (Auth::check()){
             $user = Auth::user();
             $carts = Cart::where('user_id','=',$user->id)->get();
             $prices  = Product::select('id','price','discount_price')->get();
+            $payment_method = 1;
             return view('home.showCart',compact('carts','prices'));
         } else {
             return redirect('login');
@@ -102,6 +109,39 @@ class HomeController extends Controller
 
 
         return redirect()->back()->with('item updated successfully');
+    }
+
+    public function cash_order(){
+        $user = Auth::user();
+
+        $carts = Cart::where('user_id','=',$user->id)->get();
+
+        foreach($carts as $cart){
+            $order = new Order();
+
+            $order->name = $cart->name;
+            $order->email = $cart->email;
+            $order->phone = $cart->phone;
+            $order->address = $cart->address;
+            $order->user_id = $cart->user_id;
+            $order->product_title = $cart->product_title;
+            $order->quantity = $cart->quantity;
+            $order->price = $cart->price;
+            $order->image = $cart->image;
+            $order->product_id = $cart->product_id;
+            $order->payment_status = $cart->payment_status;
+
+            $order->payment_status = "Cash On Delivery";
+            $order->delivery_status = "Processing";
+
+            $order->save();
+
+            // delete cart after add it to the order table
+            $cart->delete();
+
+        }
+
+        return redirect()->back()->with('message','Thank you for your order! We’ve received your request and will be in touch with you shortly. If you have any questions in the meantime, feel free to reach out. We appreciate your trust and look forward to assisting you!');
     }
 
 }
