@@ -29,6 +29,9 @@
                         <li class="nav-item">
                            <a class="nav-link" href="{{ route('show_cart') }}"><i class="fas fa-cart-plus" style="font-size: 1.5em;"></i></a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('my_orders') }}">Orders</a>
+                         </li>
                         <form class="form-inline">
                            <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit">
                            <i class="fa fa-search" aria-hidden="true"></i>
@@ -44,6 +47,9 @@
                                         {{ Auth::user()->name }}
                                     </a>
                                     <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a> <!-- Profile link -->
+                                        </li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">
                                                 @csrf

@@ -6,9 +6,10 @@ use App\Http\Controllers\AdminController;
 
 // Public Routes
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/redirect', [HomeController::class, 'redirect']);
+Route::get('/redirect', [HomeController::class, 'redirect'])->middleware('auth','verified');
 
 // Authentication Routes
+
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
@@ -49,5 +50,13 @@ Route::delete('/category/{category}', [AdminController::class, 'delete_category'
 // Orders Routes (Admin)
 Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
 Route::get('/orders/{order}',[AdminController::class, 'order_delivred'])->name('order_delivred');
+Route::get('/print_order_pdf/{order}',[AdminController::class, 'print_order_pdf'])->name('print_order_pdf');
+Route::get('/show_order/{order}',[AdminController::class, 'show_order'])->name('show_order');
+Route::get('/send_email/{order}',[AdminController::class, 'send_email'])->name('send_email');
+Route::post('/send_user_email/{order}',[AdminController::class, 'send_user_email'])->name('send_user_email');
+
+Route::get('/search_order',[AdminController::class, 'search_order'])->name('search_order');
+Route::get('/my_orders',[AdminController::class, 'my_orders'])->name('my_orders');
+Route::delete('/cancel_order/{order}',[AdminController::class, 'cancel_order'])->name('cancel_order');
 
 

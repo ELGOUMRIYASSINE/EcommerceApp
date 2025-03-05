@@ -1,11 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
+use PDF;
+use Notification;
+use  App\Notifications\EmailNotification;
+
 
 class AdminController extends Controller
 {
@@ -130,9 +135,14 @@ class AdminController extends Controller
 
     public function orders(){
 
-        $orders = Order::All();
+        if (Auth::user()){
+            $orders = Order::All();
+            return view('admin.order.orders',compact('orders'));
+        } else {
+            return redirect('login');
+        }
 
-        return view('admin.order.orders',compact('orders'));
+
     }
 
     public function order_delivred(Order $order){
@@ -145,6 +155,74 @@ class AdminController extends Controller
 
     }
 
+    public function print_order_pdf(Order $order){
+
+
+        $pdf = PDF::loadview('admin.order.pdf',compact('order'));
+        return $pdf->download('order_details.pdf');
+
+    }
+
+    public function show_order(Order $order){
+
+
+        return view('admin.order.show',compact('order'));
+
+    }
+
+    public function send_email(Order $order){
+
+        return view('admin.order.send_email',compact('order'));
+
+    }
+
+    public function send_user_email(Order $order){
+
+        $details = [
+            "greeting" => request()->greeting,
+            "first_line" => request()->first_line,
+            "button_text" => request()->button_text,
+            "body" => request()->body,
+            "url" => request()->url,
+            "last_line" => request()->last_line,
+        ];
+
+        Notification::send($order,new EmailNotification($details));
+        return redirect()->back()->with('message','Email sent successfully!!');
+
+
+    }
+
+    public function search_order(){
+
+        $search = request()->search;
+
+        $orders = Order::where('name', 'LIKE', "%{$search}%")
+        ->orWhere('email', 'LIKE', "%{$search}%")
+        ->orWhere('phone', 'LIKE', "%{$search}%")
+        ->orWhere('product_title', 'LIKE', "%{$search}%")
+        ->paginate(10);
+
+        return view('admin.order.orders',compact('orders'));
+
+    }
+
+    public function my_orders(){
+        if (Auth::user()){
+            $orders = order::where('user_id','=',Auth::id())->get();
+            return view('home.order',compact('orders'));
+        } else {
+            return redirect('login');
+        }
+
+
+    }
+
+    public function cancel_order(Order $order){
+        $order->delivery_status = 'You Canceled The Order';
+        $order->save();
+        return redirect()->back()->with('message','Order Canceled Correctly');
+    }
 
 
 

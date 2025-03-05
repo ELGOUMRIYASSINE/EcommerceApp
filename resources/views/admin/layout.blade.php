@@ -23,118 +23,99 @@
     <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">  <!-- End layout styles -->
     <link rel="shortcut icon" href="admin/assets/images/favicon.png" />
     <style>
-        /* 🌗 GENERAL STYLES */
-body {
-    background-color: #121212; /* Dark background */
-    color: #ffffff; /* White text */
+/* 🌑 Dark mode (default) */
+body, .container-scroller {
+    background-color: #2c2f38 !important;
+    color: #f0f0f0;
 }
 
-/* 🏛️ MAIN PANEL */
-.main-panel {
-    background-color: #1e1e1e; /* Dark gray panel */
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
-    padding: 20px;
+.main-panel, .content-wrapper {
+    background-color: transparent !important; /* Prevents conflicts */
 }
 
-/* 📜 NAVBAR */
-.navbar {
-    background-color: #222; /* Dark navbar */
-    color: #fff;
-}
-
-.navbar a {
-    color: #ddd !important;
-}
-
-/* 📂 SIDEBAR */
-.sidebar {
-    background-color: #181818; /* Dark sidebar */
-    color: white;
-    height: 100vh;
+/* 📂 Sidebar & 📜 Navbar */
+.sidebar, .navbar {
+    background-color: #24292f;
+    color: #e0e0e0;
 }
 
 .sidebar a {
-    color: #aaa !important;
+    color: #b0b0b0 !important;
 }
 
 .sidebar a:hover {
-    background-color: #333;
-    color: white !important;
+    background-color: #333e48;
+    color: #fff !important;
 }
 
-/* 🏛️ TABLE */
+/* 🏛️ Tables */
 .table {
-    background-color: #222;
-    color: white;
+    background-color: #2c2f38 !important;
+    color: #f0f0f0;
     border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
 .table th {
-    background-color: #333;
-    color: #ffcc00; /* Yellow text for better visibility */
+    background-color: #444c56;
+    color: #ffcc00;
 }
 
 .table td {
-    color: #ddd;
+    color: #bbb;
 }
 
-/* 🎨 BUTTONS */
+/* 🎨 Buttons */
 .btn {
     border-radius: 5px;
 }
 
-.btn-info {
-    background-color: #17a2b8;
-    border-color: #17a2b8;
-}
-
 .btn-warning {
-    background-color: #ffcc00;
-    border-color: #ffcc00;
+    background-color: #fbc02d;
+    border-color: #fbc02d;
     color: black;
 }
 
 .btn-danger {
-    background-color: #dc3545;
-    border-color: #dc3545;
+    background-color: #d9534f;
+    border-color: #d9534f;
 }
 
-/* 🌗 LIGHT MODE OPTION */
-.light-mode {
-    background-color: #f8f9fa;
-    color: #333;
-}
 
-.light-mode .main-panel {
-    background-color: white;
-}
+    /* 🌗 LIGHT MODE OPTION */
+    .light-mode {
+        background-color: #f8f9fa;
+        color: black;
+    }
 
-.light-mode .table {
-    background-color: white;
-    color: black;
-}
+    .light-mode .main-panel {
+        background-color: white;
+    }
 
-.light-mode .navbar {
-    background-color: white;
-    color: black;
-}
+    .light-mode .table {
+        background-color: white;
+        color: black;
+    }
 
-.light-mode .sidebar {
-    background-color: #f1f1f1;
-    color: black;
-}
+    .light-mode .navbar {
+        background-color: white;
+        color: black;
+    }
 
-.light-mode .sidebar a {
-    color: black !important;
-}
+    .light-mode .sidebar {
+        background-color: #e0e0e0;
+        color: black;
+    }
 
-.light-mode .btn-warning {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: black;
-}
+    .light-mode .sidebar a {
+        color: black !important;
+    }
+
+    .light-mode .btn-warning {
+        background-color: #ffc107;
+        border-color: #ffc107;
+        color: black;
+    }
 
     </style>
 
@@ -172,6 +153,14 @@ body {
     <!-- Custom js for this page -->
     <script src="{{ asset('admin/assets/js/dashboard.js') }}"></script>
     <!-- End custom js for this page -->
+    <script>
+
+        function redirectToOrder(row) {
+            var orderId = row.getAttribute("data-id");
+            window.location.href = `/show_order/${orderId}`;
+        }
+
+    </script>
 
 
 

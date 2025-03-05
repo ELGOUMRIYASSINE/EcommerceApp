@@ -27,7 +27,13 @@ class HomeController extends Controller
         $usertype = Auth::User()->usertype;
 
         if ($usertype == '1') {
-            return view('admin.home');
+            $total_products = product::all()->count();
+            $total_orders = order::all()->count();
+            $total_customers = user::where('usertype','!=','1')->count();
+            $total_revenue = order::where('payment_status','=','Paid')->sum('price');
+            $orders_delivered = order::where('delivery_status','=','Delivered')->count();
+            $orders_processing = order::where('delivery_status','=','processing')->count();
+            return view('admin.home',compact('total_products','total_orders','total_customers','total_revenue','orders_delivered','orders_processing'));
         }
         else {
             $products = Product::paginate(6);
@@ -153,7 +159,7 @@ class HomeController extends Controller
     public function stripePost(Request $request,$totalPrice)
 
     {
-        
+
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
