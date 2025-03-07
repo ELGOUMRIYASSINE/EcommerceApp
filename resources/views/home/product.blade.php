@@ -16,12 +16,20 @@
                         </a>
                         <form action="{{ route('add_to_cart',$product->id) }}" method="POST" class="d-flex align-items-center justify-content-between">
                             @csrf
-                            <div class="input-group" style="width: 120px;">
-                                <input type="number" name="quantity" min="1" value="1" class="form-control text-center">
-                            </div>
-                            <button type="submit" class="btn btn-primary ml-2 option2">
-                                <i class="fas fa-cart-plus"></i> Add To Cart
-                            </button>
+                            @if($product->is_digital == 1)
+                                {{-- <a href="#" class="btn btn-primary ml-2 option1">Buy Now</a> --}}
+                                <button type="submit" class="btn btn-primary ml-2 option2">
+                                    <i class="fas fa-cart-plus"></i> Add To Cart
+                                    <input type="hidden" name="quantity" value="1">
+                                </button>
+                            @else
+                                <div class="input-group" style="width: 120px;">
+                                    <input type="number" name="quantity" min="1" value="1" class="form-control text-center">
+                                </div>
+                                <button type="submit" class="btn btn-primary ml-2 option2">
+                                    <i class="fas fa-cart-plus"></i> Add To Cart
+                                </button>
+                            @endif
                         </form>
                     </div>
                 </div>

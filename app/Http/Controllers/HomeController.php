@@ -18,7 +18,11 @@ class HomeController extends Controller
 
     public function index(){
         $products = Product::paginate(6);
-        return view('home.userpage',compact('products'));
+
+        $cartNumber = cart::where('user_id','=',Auth::id())->count();
+        // here we return 1 means no user are there
+        $userEmailVerification = Auth::check() ? Auth::User()->email_verified_at : 1 ;
+        return view('home.userpage',compact('products','userEmailVerification','cartNumber'));
     }
 
     public function redirect(){
@@ -36,15 +40,20 @@ class HomeController extends Controller
             return view('admin.home',compact('total_products','total_orders','total_customers','total_revenue','orders_delivered','orders_processing'));
         }
         else {
+
             $products = Product::paginate(6);
-            return view('home.userpage',compact('products'));
+            // here we return 1 means no user are there
+            $userEmailVerification = Auth::check() ? Auth::User()->email_verified_at : 1;
+            $cartNumber = cart::where('user_id','=',Auth::id())->count();
+            return view('home.userpage',compact('products','userEmailVerification','cartNumber'));
         }
 
     }
 
     public function product_details(Product $product){
+        $cartNumber = cart::where('user_id','=',Auth::id())->count();
 
-        return view('home.product_details',compact('product'));
+        return view('home.product_details',compact('product','cartNumber'));
     }
 
     public function add_to_cart(Product $product){
@@ -63,10 +72,11 @@ class HomeController extends Controller
             $cart->phone = $user->phone;
             $cart->address = $user->address;
             $cart->product_title = $product->title;
-            $cart->quantity = request()->quantity;
+            $cart->quantity = request()->quantity ;
             $cart->image = $product->image;
             $cart->product_id = $product->id;
             $cart->user_id = $user->id;
+            $cart->is_digital = $product->is_digital;
 
             $cart->save();
 
@@ -90,7 +100,15 @@ class HomeController extends Controller
             $carts = Cart::where('user_id','=',$user->id)->get();
             $prices  = Product::select('id','price','discount_price')->get();
             $payment_method = 1;
-            return view('home.showCart',compact('carts','prices'));
+            $cartNumber = cart::where('user_id','=',Auth::id())->count();
+            $digital = false;
+            foreach($carts as $cart){
+                if($cart->is_digital == 1){
+                    $digital = true;
+                    break;
+                }
+            }
+            return view('home.showCart',compact('carts','prices','cartNumber','digital'));
         } else {
             return redirect('login');
         }
@@ -153,7 +171,8 @@ class HomeController extends Controller
     }
 
     public function stripe($totalPrice){
-        return view('home.stripe',compact('totalPrice'));
+        $cartNumber = cart::where('user_id','=',Auth::id())->count();
+        return view('home.stripe',compact('totalPrice','cartNumber'));
     }
 
     public function stripePost(Request $request,$totalPrice)
@@ -185,6 +204,13 @@ class HomeController extends Controller
         foreach($carts as $cart){
             $order = new Order();
 
+            $file_path = null ;
+            if($cart->is_digital){
+                $product_id = $cart->product_id;
+                $file_path = Product::where('id', '=', $product_id)->value('file_path');
+            }
+            
+
             $order->name = $cart->name;
             $order->email = $cart->email;
             $order->phone = $cart->phone;
@@ -192,13 +218,20 @@ class HomeController extends Controller
             $order->user_id = $cart->user_id;
             $order->product_title = $cart->product_title;
             $order->quantity = $cart->quantity;
+            $order->is_digital = $cart->is_digital;
+            $order->file_path = $file_path;
             $order->price = $cart->price;
             $order->image = $cart->image;
             $order->product_id = $cart->product_id;
             $order->payment_status = $cart->payment_status;
 
             $order->payment_status = "Paid";
-            $order->delivery_status = "Processing";
+
+            if($cart->is_digital){
+                $order->delivery_status = "Delivered";
+            } else {
+                $order->delivery_status = "Processing";
+            }
 
             $order->save();
 
@@ -213,7 +246,7 @@ class HomeController extends Controller
 
 
 
-        return back();
+        return redirect('my_orders')->with('message','Payment successful!');
 
     }
 

@@ -71,7 +71,7 @@
                             </a>
 
                             <!-- Send Email Button -->
-                            <a href="#" class="btn btn-primary px-4 py-2">
+                            <a href="{{ route('send_email',$order->id) }}" class="btn btn-primary px-4 py-2">
                                 <i class="fas fa-envelope"></i> Send Email
                             </a>
 

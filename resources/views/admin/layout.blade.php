@@ -160,6 +160,22 @@ body, .container-scroller {
             window.location.href = `/show_order/${orderId}`;
         }
 
+
+
+        
+    function toggleFileInput() {
+        const isDigital = document.getElementById('is_digital').value;
+        const fileInputGroup = document.getElementById('file_input_group');
+        if (isDigital == '1') {
+            fileInputGroup.style.display = 'block'; // Show file input
+        } else {
+            fileInputGroup.style.display = 'none'; // Hide file input
+        }
+    }
+
+
+
+
     </script>
 
 

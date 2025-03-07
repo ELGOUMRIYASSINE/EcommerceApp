@@ -134,7 +134,7 @@
                     </form>
 
                     <!-- Buy Now Button -->
-                    <button class="btn buy-now-btn">Buy Now</button>
+        
                 </div>
             </div>
         </div>

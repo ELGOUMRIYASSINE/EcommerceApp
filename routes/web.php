@@ -60,3 +60,13 @@ Route::get('/my_orders',[AdminController::class, 'my_orders'])->name('my_orders'
 Route::delete('/cancel_order/{order}',[AdminController::class, 'cancel_order'])->name('cancel_order');
 
 
+Route::get('/resend-email-verification', function (Request $request) {
+    if (Auth::check() && !Auth::user()->hasVerifiedEmail()) {
+        Auth::user()->sendEmailVerificationNotification();
+        return redirect()->back()->with('message', 'A new verification email has been sent.');
+    }
+
+    return redirect()->back()->with('error', 'Your email is already verified or you are not logged in.');
+})->middleware('auth')->name('verification.resend');
+
+

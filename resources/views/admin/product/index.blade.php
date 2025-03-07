@@ -36,6 +36,7 @@
                                 <th>Price</th>
                                 <th>discount_price</th>
                                 <th>Image</th>
+                                <th>Product File</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -53,6 +54,13 @@
                                         <td>{{ $product->price }} $</td>
                                         <td>{{ $product->discount_price }} $</td>
                                         <td><img src="{{ asset('storage/'.$product->image) }}" alt="" width="50"></td>
+                                        <td>
+                                            @if($product->file_path)
+                                                <a href="{{ asset('storage/'.$product->file_path) }}" target="_blank">View File</a>
+                                            @else
+                                                No File
+                                            @endif
+                                        </td>
                                         <td>
                                             <a href="{{ route('product.show',$product->id) }}" class="btn btn-info btn-sm">Show</a>
                                             <a href="{{ route('product.edit',$product->id) }}" class="btn btn-warning btn-sm">Edit</a>

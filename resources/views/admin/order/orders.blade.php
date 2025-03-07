@@ -50,6 +50,7 @@
                                 <th>Delivered</th>
                                 <th>PDF</th>
                                 <th>Send Email</th>
+                                
                             </tr>
                         </thead>
                         <tbody>

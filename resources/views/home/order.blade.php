@@ -57,6 +57,9 @@
                                 <td>{{ $order->payment_status }}</td>
                                 <td>{{ $order->delivery_status }}</td>
                                 <td>
+                                @if($order->is_digital == 1)
+                                    <a href="{{ asset('storage/'.$order->file_path) }}" class="btn btn-success" target="_blank">Get Your Order</a>
+                                @else
                                     @if ($order->delivery_status == 'Delivered')
                                         <span class="badge bg-success text-white">Finished</span>
                                     @elseif($order->delivery_status == 'Processing')
@@ -68,6 +71,7 @@
                                     @elseif($order->delivery_status == 'You Canceled The Order')
                                         <span class="badge bg-danger text-white">Cnceled</span>
                                     @endif
+                                @endif
                                 </td>
                             </tr>
                         @endforeach

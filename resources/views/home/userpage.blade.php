@@ -29,12 +29,34 @@
         display: none;
     }
       </style>
+
+
    </head>
    <body>
       <div class="hero_area">
         <!-- header section strats -->
 
         @include('home.header')
+        @if($userEmailVerification == null)
+            <div class="alert alert-warning" role="alert" >
+                We've sent a verification email to your inbox. Please check your email (including your spam folder) and verify your account to continue.
+                {{-- <form action="{{ route('verification.resend') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">
+                        {{ __('Click here to re-send the verification email.') }}
+                    </button>
+                </form> --}}
+                <a href="{{ route('verification.resend') }}">Click here to re-send the verification email.</a>
+
+                @if (session('message'))
+                    <p class="mt-2 text-sm text-green-600">{{ session('message') }}</p>
+                @endif
+
+                @if (session('error'))
+                    <p class="mt-2 text-sm text-red-600">{{ session('error') }}</p>
+                @endif
+            </div>
+        @endif
 
         <!-- end header section -->
 

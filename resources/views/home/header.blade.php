@@ -27,8 +27,20 @@
                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="{{ route('show_cart') }}"><i class="fas fa-cart-plus" style="font-size: 1.5em;"></i></a>
+                            <a class="nav-link" href="{{ route('show_cart') }}" style="position: relative; display: inline-block;">
+                                @if($cartNumber > 0)
+                                    <span class="badge badge-pill badge-danger"
+                                          style="position: absolute; top: 0; left: -3px; font-size: 0.8em; background-color: red;">
+                                        {{ $cartNumber }}
+                                    </span>
+                                @endif
+                                <i class="fas fa-cart-plus"
+                                   style="font-size: 1.5em;
+                                          color: {{ $cartNumber > 0 ? 'green' : 'black' }};">
+                                </i>
+                            </a>
                         </li>
+
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('my_orders') }}">Orders</a>
                          </li>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
+use App\Models\Cart;
 use PDF;
 use Notification;
 use  App\Notifications\EmailNotification;
@@ -70,6 +71,13 @@ class AdminController extends Controller
         if (request()->hasFile('image')){
             $imagPath = request()->file('image')->store('products','public');
         }
+
+        // Process product file upload (for digital products)
+        $productFilePath = null;
+        if (request()->hasFile('file_path') && request()->input('is_digital') == 1) {
+            $productFilePath = request()->file('file_path')->storeAs('products', request()->file('file_path')->getClientOriginalName(), 'public');
+        }
+
         $data = new Product();
         $data->title = request()->title ;
         $data->description = request()->description ;
@@ -78,6 +86,7 @@ class AdminController extends Controller
         $data->image = $imagPath ;
         $data->price = request()->price ;
         $data->discount_price = request()->discount_price ;
+        $data->file_path = $productFilePath ;
         $data->save();
         return redirect()->back()->with('message','Product Added Successfully');
     }
@@ -210,7 +219,8 @@ class AdminController extends Controller
     public function my_orders(){
         if (Auth::user()){
             $orders = order::where('user_id','=',Auth::id())->get();
-            return view('home.order',compact('orders'));
+            $cartNumber = cart::where('user_id','=',Auth::id())->count();
+            return view('home.order',compact('orders','cartNumber'));
         } else {
             return redirect('login');
         }

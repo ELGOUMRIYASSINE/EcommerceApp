@@ -31,6 +31,7 @@
                                 <th>Product</th>
                                 <th>Product Price</th>
                                 <th>Quantity</th>
+                                <th>Product Type</th>
                                 <th>Total Price</th>
                                 <th>Actions</th>
                             </tr>
@@ -43,6 +44,7 @@
                                 @php
                                     // get the total price from the table
                                     $totalPrice += $cart['price'] ;
+                                    // dd($totalPrice)
                                 @endphp
                                 <tr>
                                     <td>
@@ -61,12 +63,23 @@
                                     @endforeach
 
                                     <td>
-                                        <form action="{{ route('quantity_cart_update',$cart->id) }}" method="POST" class="d-flex justify-content-center">
-                                            @csrf
-                                            <input type="number" name="quantity" value="{{ $cart['quantity'] }}" min="1" class="form-control text-center" style="width: 60px; margin-right:3px;">
-                                            <button type="submit" class="btn btn-success btn-sm ms-2" style="height: 38px;">Update</button>
+                                        @if ($cart->is_digital == 1)
+                                            {{ $cart['quantity'] }}
+                                        @else
+                                            <form action="{{ route('quantity_cart_update',$cart->id) }}" method="POST" class="d-flex justify-content-center">
+                                                @csrf
+                                                <input type="number" name="quantity" value="{{ $cart['quantity'] }}" min="1" class="form-control text-center" style="width: 60px; margin-right:3px;">
+                                                <button type="submit" class="btn btn-success btn-sm ms-2" style="height: 38px;">Update</button>
 
-                                        </form>
+                                            </form>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($cart->is_digital == 1)
+                                            <span>Digital Product</span>
+                                        @else
+                                            <span>Phisical Product</span>
+                                        @endif
                                     </td>
                                     <td>
                                         ${{ number_format($cart['price'], 2) }}
@@ -86,8 +99,12 @@
                 {{-- @if($payment_method == 1) --}}
                 <div class="text-center mt-4">
                     <h4 class="fw-bold">Total: ${{ number_format($totalPrice, 2) }}</h4>
-                    <a href="{{ route('cash_order') }}" class="btn btn-success btn-lg mt-2">Cash On Deleviry</a>
-                    <a href="{{ route('stripe',$totalPrice) }}" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
+                    @if ($digital)
+                        <a href="{{ route('stripe',$totalPrice) }}" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
+                        @else
+                        <a href="{{ route('stripe',$totalPrice) }}" class="btn btn-success btn-lg mt-2">Pay Using Card</a>
+                        <a href="{{ route('cash_order') }}" class="btn btn-success btn-lg mt-2">Cash On Deleviry</a>
+                    @endif
                 </div>
                 {{-- @elseif ($payment_method == 2)
                 @else --}}
