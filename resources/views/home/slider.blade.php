@@ -11,16 +11,16 @@
                       <div class="detail-box">
                          <h1>
                             <span>
-                            Sale 20% Off
+                            Exclusive Deals Up to 70% Off
                             </span>
                             <br>
-                            On Everything
+                            Digital & Physical Products
                          </h1>
                          <p>
-                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
+                            Discover high-quality original products at unbeatable prices. From cutting-edge digital solutions to top-tier physical items, we bring you the best selection for your needs.
                          </p>
                          <div class="btn-box">
-                            <a href="" class="btn1">
+                            <a href="{{ route('products_page') }}" class="btn1">
                             Shop Now
                             </a>
                          </div>
@@ -36,17 +36,17 @@
                       <div class="detail-box">
                          <h1>
                             <span>
-                            Sale 20% Off
+                            100% Authentic Products
                             </span>
                             <br>
-                            On Everything
+                            Guaranteed Quality
                          </h1>
                          <p>
-                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
+                            We only sell original, high-quality products. Whether you're looking for the latest software, gadgets, or premium fashion, we ensure every purchase is genuine and reliable.
                          </p>
                          <div class="btn-box">
-                            <a href="" class="btn1">
-                            Shop Now
+                            <a href="{{ route('products_page') }}" class="btn1">
+                            Browse Now
                             </a>
                          </div>
                       </div>
@@ -61,17 +61,17 @@
                       <div class="detail-box">
                          <h1>
                             <span>
-                            Sale 20% Off
+                            Instant Access to Digital Goods
                             </span>
                             <br>
-                            On Everything
+                            Get Your Products Now!
                          </h1>
                          <p>
-                            Explicabo esse amet tempora quibusdam laudantium, laborum eaque magnam fugiat hic? Esse dicta aliquid error repudiandae earum suscipit fugiat molestias, veniam, vel architecto veritatis delectus repellat modi impedit sequi.
+                            No waiting, no hassle! Download your favorite e-books, software, and premium digital content instantly after purchase. Fast, secure, and reliable shopping experience.
                          </p>
                          <div class="btn-box">
-                            <a href="" class="btn1">
-                            Shop Now
+                            <a href="{{ route('products_page') }}" class="btn1">
+                            Explore Digital Products
                             </a>
                          </div>
                       </div>
@@ -88,4 +88,4 @@
           </ol>
        </div>
     </div>
- </section>
+</section>

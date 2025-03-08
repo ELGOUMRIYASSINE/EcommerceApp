@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\Cart;
+use App\Models\Subscribe;
 use PDF;
 use Notification;
 use  App\Notifications\EmailNotification;
@@ -89,6 +90,13 @@ class AdminController extends Controller
         $data->file_path = $productFilePath ;
         $data->save();
         return redirect()->back()->with('message','Product Added Successfully');
+    }
+
+    // show products on products page
+
+    public function products_page(){
+        $products = Product::paginate(20);
+        return view('home.productsPage',compact('products'));
     }
 
     // show all products
@@ -219,13 +227,17 @@ class AdminController extends Controller
     public function my_orders(){
         if (Auth::user()){
             $orders = order::where('user_id','=',Auth::id())->get();
-            $cartNumber = cart::where('user_id','=',Auth::id())->count();
-            return view('home.order',compact('orders','cartNumber'));
+            return view('home.order',compact('orders'));
         } else {
             return redirect('login');
         }
 
 
+    }
+
+    public function delete_order(Order $order){
+        $order->delete();
+        return redirect()->back()->with('message','order deleted successfully!');
     }
 
     public function cancel_order(Order $order){
@@ -234,6 +246,16 @@ class AdminController extends Controller
         return redirect()->back()->with('message','Order Canceled Correctly');
     }
 
+    public function subscribe(){
+        request()->validate([
+            'email' => 'required|email|unique:subscribes,email',
+        ]);
 
+        $subscribe = new Subscribe();
+        $subscribe->email = request()->email;
+        $subscribe->save();
+
+        return redirect()->back()->with('message', 'You have subscribed successfully');
+    }
 
 }

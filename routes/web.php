@@ -24,6 +24,7 @@ Route::middleware([
 Route::get('/products/show', [AdminController::class, 'show_products'])->name('products.index');
 Route::get('/product/create', [AdminController::class, 'create_product'])->name('products.create');
 Route::post('/product/store', [AdminController::class, 'store_product'])->name('store_product');
+Route::get('/products_page', [AdminController::class, 'products_page'])->name('products_page');
 Route::get('/product/show/{product}', [AdminController::class, 'show_product'])->name('product.show');
 Route::get('/product/{product}/edit', [AdminController::class, 'edit_product'])->name('product.edit');
 Route::post('/product/{product}/update', [AdminController::class, 'update_product'])->name('product.update');
@@ -51,6 +52,7 @@ Route::delete('/category/{category}', [AdminController::class, 'delete_category'
 Route::get('/orders', [AdminController::class, 'orders'])->name('orders');
 Route::get('/orders/{order}',[AdminController::class, 'order_delivred'])->name('order_delivred');
 Route::get('/print_order_pdf/{order}',[AdminController::class, 'print_order_pdf'])->name('print_order_pdf');
+Route::get('/delete_order/{order}',[AdminController::class, 'delete_order'])->name('delete_order');
 Route::get('/show_order/{order}',[AdminController::class, 'show_order'])->name('show_order');
 Route::get('/send_email/{order}',[AdminController::class, 'send_email'])->name('send_email');
 Route::post('/send_user_email/{order}',[AdminController::class, 'send_user_email'])->name('send_user_email');
@@ -68,5 +70,7 @@ Route::get('/resend-email-verification', function (Request $request) {
 
     return redirect()->back()->with('error', 'Your email is already verified or you are not logged in.');
 })->middleware('auth')->name('verification.resend');
+
+Route::get('/subscribe',[AdminController::class,'subscribe'])->name('subscribe');
 
 

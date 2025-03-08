@@ -19,10 +19,9 @@ class HomeController extends Controller
     public function index(){
         $products = Product::paginate(6);
 
-        $cartNumber = cart::where('user_id','=',Auth::id())->count();
         // here we return 1 means no user are there
         $userEmailVerification = Auth::check() ? Auth::User()->email_verified_at : 1 ;
-        return view('home.userpage',compact('products','userEmailVerification','cartNumber'));
+        return view('home.userpage',compact('products','userEmailVerification'));
     }
 
     public function redirect(){
@@ -44,16 +43,13 @@ class HomeController extends Controller
             $products = Product::paginate(6);
             // here we return 1 means no user are there
             $userEmailVerification = Auth::check() ? Auth::User()->email_verified_at : 1;
-            $cartNumber = cart::where('user_id','=',Auth::id())->count();
-            return view('home.userpage',compact('products','userEmailVerification','cartNumber'));
+            return view('home.userpage',compact('products','userEmailVerification'));
         }
 
     }
 
     public function product_details(Product $product){
-        $cartNumber = cart::where('user_id','=',Auth::id())->count();
-
-        return view('home.product_details',compact('product','cartNumber'));
+        return view('home.product_details',compact('product'));
     }
 
     public function add_to_cart(Product $product){
@@ -100,7 +96,6 @@ class HomeController extends Controller
             $carts = Cart::where('user_id','=',$user->id)->get();
             $prices  = Product::select('id','price','discount_price')->get();
             $payment_method = 1;
-            $cartNumber = cart::where('user_id','=',Auth::id())->count();
             $digital = false;
             foreach($carts as $cart){
                 if($cart->is_digital == 1){
@@ -108,7 +103,7 @@ class HomeController extends Controller
                     break;
                 }
             }
-            return view('home.showCart',compact('carts','prices','cartNumber','digital'));
+            return view('home.showCart',compact('carts','prices','digital'));
         } else {
             return redirect('login');
         }
@@ -171,8 +166,7 @@ class HomeController extends Controller
     }
 
     public function stripe($totalPrice){
-        $cartNumber = cart::where('user_id','=',Auth::id())->count();
-        return view('home.stripe',compact('totalPrice','cartNumber'));
+        return view('home.stripe',compact('totalPrice'));
     }
 
     public function stripePost(Request $request,$totalPrice)
@@ -209,7 +203,7 @@ class HomeController extends Controller
                 $product_id = $cart->product_id;
                 $file_path = Product::where('id', '=', $product_id)->value('file_path');
             }
-            
+
 
             $order->name = $cart->name;
             $order->email = $cart->email;

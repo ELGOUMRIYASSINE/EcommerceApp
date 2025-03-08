@@ -45,12 +45,14 @@
                                 <th>Quantity</th>
                                 <th>Price</th>
                                 <th>Image</th>
+                                <th>Product File</th>
                                 <th>Payment Status</th>
                                 <th>Delivery Status</th>
                                 <th>Delivered</th>
                                 <th>PDF</th>
                                 <th>Send Email</th>
-                                
+                                <th>Actions</th>
+
                             </tr>
                         </thead>
                         <tbody>
@@ -66,7 +68,13 @@
                                     <td>
                                         <img src="{{ asset('storage/'.$order->image) }}" alt="Product Image" width="50" class="img-thumbnail">
                                     </td>
-
+                                    <td>
+                                        @if ($order->file_path)
+                                            <a href="{{ asset('storage/'.$order->file_path) }}" target="_blank" class="text-success" >Show File</a>
+                                        @else
+                                         <span class="text-danger">No File</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <span class="badge badge-pill
                                             {{ $order->payment_status == 'Paid' ? 'badge-success' : 'badge-danger' }}"
@@ -105,6 +113,9 @@
                                         <a href="{{ route('send_email',$order->id) }}" class="btn btn-outline-primary btn-sm">
                                             <i class="fas fa-envelope"></i> Email
                                         </a>
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('delete_order',$order->id) }}" onclick="return confirm('Are You Sure You want to delete this order?')" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @empty

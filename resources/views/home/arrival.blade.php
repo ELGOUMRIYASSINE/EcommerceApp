@@ -1,8 +1,8 @@
-<section class="arrival_section">
+<section class="arrival_section" style="pointer-events: auto;">
     <div class="container">
-       <div class="box">
+       <div class="box" style="pointer-events: auto;">
           <div class="arrival_bg_box">
-             <img src="images/arrival-bg.png" alt="">
+             <img src="images/arrival-bg.png" alt="New Arrivals Background">
           </div>
           <div class="row">
              <div class="col-md-6 ml-auto">
@@ -11,14 +11,11 @@
                       #NewArrivals
                    </h2>
                 </div>
-                <p style="margin-top: 20px;margin-bottom: 30px;">
-                   Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
+                <p style="margin-top: 20px; margin-bottom: 30px;">
+                   Discover the latest trends and freshest picks in our New Arrivals collection! From stylish fashion to cutting-edge gadgets, we bring you the best of what’s new. Be the first to explore and shop these exclusive items before they’re gone. Stay ahead of the curve with our constantly updated selection!
                 </p>
-                <a href="">
-                Shop Now
-                </a>
              </div>
           </div>
        </div>
     </div>
- </section>
+</section>

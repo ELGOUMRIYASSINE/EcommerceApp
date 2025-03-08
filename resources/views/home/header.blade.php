@@ -60,7 +60,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a> <!-- Profile link -->
+                                            <a class="dropdown-item" href="{{ route('profile.show',$cartNumber) }}">Profile</a> <!-- Profile link -->
                                         </li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">

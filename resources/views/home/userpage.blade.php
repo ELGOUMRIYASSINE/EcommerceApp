@@ -11,7 +11,7 @@
       <meta name="description" content="" />
       <meta name="author" content="" />
       <link rel="shortcut icon" href="images/favicon.png" type="">
-      <title>Famms - Fashion HTML Template</title>
+      <title>Zshop Store</title>
       <!-- bootstrap core css -->
       <link rel="stylesheet" type="text/css" href="home/css/bootstrap.css" />
       <!-- font awesome style -->
@@ -28,6 +28,37 @@
     .pagination-info {
         display: none;
     }
+
+    <style>
+    /* Make pagination smaller */
+    .pagination {
+        font-size: 14px; /* Adjust the size as needed */
+    }
+
+    /* Remove "Previous" and "Next" text */
+    .page-item .page-link {
+        padding: 0.25rem 0.5rem; /* Smaller padding */
+    }
+
+    /* Hide "Previous" and "Next" text */
+    .page-item:first-child .page-link::before {
+        content: "‹"; /* Left arrow */
+    }
+
+    .page-item:last-child .page-link::before {
+        content: "›"; /* Right arrow */
+    }
+
+    .page-item:first-child .page-link span,
+    .page-item:last-child .page-link span {
+        display: none; /* Hide the text */
+    }
+
+    /* Center the pagination */
+    .pagination {
+        justify-content: center;
+    }
+
       </style>
 
 
@@ -57,6 +88,15 @@
                 @endif
             </div>
         @endif
+
+        @if(session('message'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('message') }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                @endif
 
         <!-- end header section -->
 
@@ -104,9 +144,9 @@
       <!-- footer end -->
 
       <div class="cpy_">
-         <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
+         <p class="mx-auto">© 2025 All Rights Reserved <br>
 
-            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            Developed By <a href="https://yassineelgoumri.wuaze.com/?i=1" target="_blank">Yssine El Goumri</a>
 
          </p>
       </div>

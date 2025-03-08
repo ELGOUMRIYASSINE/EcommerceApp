@@ -7,9 +7,9 @@
                    <a href="#"><img width="210" src="{{ asset('images/logo.png') }}" alt="#" /></a>
                  </div>
                  <div class="information_f">
-                   <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
-                   <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
-                   <p><strong>EMAIL:</strong> yourmain@gmail.com</p>
+                   {{-- <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p> --}}
+                   <p><strong>TELEPHONE:</strong> +212 675735586</p>
+                   <p><strong>EMAIL:</strong> proowork15@gmail.com</p>
                  </div>
               </div>
           </div>
@@ -52,7 +52,7 @@
                      <p>Subscribe by our newsletter and get update protidin.</p>
                    </div>
                    <div class="form_sub">
-                      <form>
+                      <form action="{{ route('subscribe') }}"  method="get">
                          <fieldset>
                             <div class="field">
                                <input type="email" placeholder="Enter Your Mail" name="email" />
