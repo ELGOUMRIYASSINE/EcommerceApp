@@ -117,6 +117,17 @@ body, .container-scroller {
         color: black;
     }
 
+    td {
+    word-wrap: break-word;
+}
+
+.table-container td {
+    max-width: 200px;  /* Optionally, limit the width of message column */
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+
     </style>
 
 
@@ -162,7 +173,7 @@ body, .container-scroller {
 
 
 
-        
+
     function toggleFileInput() {
         const isDigital = document.getElementById('is_digital').value;
         const fileInputGroup = document.getElementById('file_input_group');

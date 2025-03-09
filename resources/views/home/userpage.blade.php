@@ -146,7 +146,7 @@
       <div class="cpy_">
          <p class="mx-auto">© 2025 All Rights Reserved <br>
 
-            Developed By <a href="https://yassineelgoumri.wuaze.com/?i=1" target="_blank">Yssine El Goumri</a>
+            Developed By <a href="https://yassineelgoumri.wuaze.com/?i=1" target="_blank">Yssine El Goumri @Portfolio</a>
 
          </p>
       </div>

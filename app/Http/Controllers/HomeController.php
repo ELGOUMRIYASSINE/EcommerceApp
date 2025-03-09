@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Order;
+use App\Models\Contact;
+use App\Models\Subscribe;
 use Session;
 use Stripe;
 
@@ -32,11 +34,13 @@ class HomeController extends Controller
         if ($usertype == '1') {
             $total_products = product::all()->count();
             $total_orders = order::all()->count();
+            $total_subscribes = subscribe::all()->count();
+            $total_messages = contact::all()->count();
             $total_customers = user::where('usertype','!=','1')->count();
             $total_revenue = order::where('payment_status','=','Paid')->sum('price');
             $orders_delivered = order::where('delivery_status','=','Delivered')->count();
             $orders_processing = order::where('delivery_status','=','processing')->count();
-            return view('admin.home',compact('total_products','total_orders','total_customers','total_revenue','orders_delivered','orders_processing'));
+            return view('admin.home',compact('total_products','total_orders','total_customers','total_revenue','orders_delivered','orders_processing','total_messages','total_subscribes'));
         }
         else {
 
@@ -91,7 +95,6 @@ class HomeController extends Controller
         // 2 => cash on deleviry
         // 3 => pay using card
 
-        if (Auth::check()){
             $user = Auth::user();
             $carts = Cart::where('user_id','=',$user->id)->get();
             $prices  = Product::select('id','price','discount_price')->get();
@@ -104,12 +107,6 @@ class HomeController extends Controller
                 }
             }
             return view('home.showCart',compact('carts','prices','digital'));
-        } else {
-            return redirect('login');
-        }
-
-
-
     }
 
     public function delete_cart(Cart $cart){
@@ -242,6 +239,19 @@ class HomeController extends Controller
 
         return redirect('my_orders')->with('message','Payment successful!');
 
+    }
+
+    public function userMessage(){
+        $contact = new Contact();
+
+        $contact->full_name = request()->full_name ;
+        $contact->email = request()->email ;
+        $contact->subject = request()->subject ;
+        $contact->message = request()->message ;
+
+        $contact->save();
+
+        return redirect()->back()->with('message', 'Thank you for reaching out! Your message has been sent successfully. We will get back to you shortly.');
     }
 
 }

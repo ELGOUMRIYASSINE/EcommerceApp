@@ -13,8 +13,8 @@
                        <li class="nav-item dropdown">
                            <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true"> <span class="nav-label">Pages <span class="caret"></span></a>
                            <ul class="dropdown-menu">
-                              <li><a href="about.html">About</a></li>
-                              <li><a href="testimonial.html">Testimonial</a></li>
+                              <li><a href="/#about">About</a></li>
+                              <li><a href="/#client">Testimonial</a></li>
                            </ul>
                         </li>
                         <li class="nav-item">
@@ -24,7 +24,7 @@
                            <a class="nav-link" href="blog_list.html">Blog</a>
                         </li>
                         <li class="nav-item">
-                           <a class="nav-link" href="contact.html">Contact</a>
+                           <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('show_cart') }}" style="position: relative; display: inline-block;">
@@ -60,7 +60,7 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a class="dropdown-item" href="{{ route('profile.show',$cartNumber) }}">Profile</a> <!-- Profile link -->
+                                            <a class="dropdown-item" href="{{ route('profile.show') }}">Profile</a> <!-- Profile link -->
                                         </li>
                                         <li>
                                             <form method="POST" action="{{ route('logout') }}">

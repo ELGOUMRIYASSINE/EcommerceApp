@@ -105,6 +105,24 @@
         </a>
     </li>
 
+    <li class="nav-item menu-items">
+        <a class="nav-link active" href="{{ route('messages') }}">
+            <span class="menu-icon">
+                <i class="mdi mdi-message"></i>
+            </span>
+            <span class="menu-title">Messages</span>
+        </a>
+    </li>
+
+    <li class="nav-item menu-items">
+        <a class="nav-link active" href="{{ route('subscribes') }}">
+            <span class="menu-icon">
+                <i class="mdi mdi-bell"></i>
+            </span>
+            <span class="menu-title">Subscribes</span>
+        </a>
+    </li>
+
 
 
 

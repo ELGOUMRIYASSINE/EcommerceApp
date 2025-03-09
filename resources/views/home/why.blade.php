@@ -1,4 +1,4 @@
-<section class="why_section layout_padding">
+<section class="why_section layout_padding" id="about">
     <div class="container">
         <div class="heading_container heading_center">
             <h2>Why Shop With Us</h2>

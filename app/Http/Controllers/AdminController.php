@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Order;
 use App\Models\Cart;
 use App\Models\Subscribe;
+use App\Models\Contact;
 use PDF;
 use Notification;
 use  App\Notifications\EmailNotification;
@@ -151,15 +152,8 @@ class AdminController extends Controller
     }
 
     public function orders(){
-
-        if (Auth::user()){
-            $orders = Order::All();
-            return view('admin.order.orders',compact('orders'));
-        } else {
-            return redirect('login');
-        }
-
-
+        $orders = Order::All();
+        return view('admin.order.orders',compact('orders'));
     }
 
     public function order_delivred(Order $order){
@@ -225,14 +219,8 @@ class AdminController extends Controller
     }
 
     public function my_orders(){
-        if (Auth::user()){
-            $orders = order::where('user_id','=',Auth::id())->get();
-            return view('home.order',compact('orders'));
-        } else {
-            return redirect('login');
-        }
-
-
+        $orders = order::where('user_id','=',Auth::id())->get();
+        return view('home.order',compact('orders'));
     }
 
     public function delete_order(Order $order){
@@ -256,6 +244,16 @@ class AdminController extends Controller
         $subscribe->save();
 
         return redirect()->back()->with('message', 'You have subscribed successfully');
+    }
+
+    public function messages(){
+        $messages = Contact::All();
+        return view('admin.messages',compact('messages'));
+    }
+
+    public function subscribes(){
+        $subscribes = Subscribe::All();
+        return view('admin.subscribes',compact('subscribes'));
     }
 
 }
